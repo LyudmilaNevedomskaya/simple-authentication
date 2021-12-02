@@ -22,8 +22,6 @@ const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
 
-console.log();
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -86,7 +84,7 @@ passport.use(new GoogleStrategy({
   userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
 function(accessToken, refreshToken, profile, cb) {
-  console.log("PROFILE", profile);
+  // console.log("PROFILE", profile);
   User.findOrCreate({ googleId: profile.id }, function (err, user) {
     return cb(err, user);
   });
@@ -213,7 +211,7 @@ app.post("/login", (req, res) => {
 app.post("/submit", (req, res) => {
   const submitedSecret = req.body.secret;
 
-  console.log(req.user.id);
+  // console.log(req.user.id);
 
   User.findById(req.user.id, function(err, foundUser) {
     if (err) {
